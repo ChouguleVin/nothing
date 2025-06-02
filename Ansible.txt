@@ -1,0 +1,58 @@
+
+# ANSIBLE 
+
+-------Required 2 or 3 AWS EC2 instance (Do on all 3 machines)-----------
+- $ sudo apt update 
+- $ sudo apt install ansible -y
+
+## AWS EC2 - 01 
+
+- $ mkdir demo 
+- $ cd demo
+
+- $ nano inventory.ini
+--> [webservers]
+    managed_node1 ansible_host=<Client1 Public IP> ansible_user=admin
+    managed_node2 ansible_host=<Client2 Public IP> ansible_user=admin
+        
+- $ nano install.yml
+
+---
+- name: Install apache2 on Debian
+  hosts: webservers
+  become: yes
+  tasks:
+    - name: Update apt cache
+      ansible.builtin.apt:
+        update_cache: yes
+
+    - name: Install apache2
+      ansible.builtin.apt:
+        name: apache2
+        state: present
+
+    - name: Ensure apache2 is running
+      ansible.builtin.service:
+        name: apache2
+        state: started
+        enabled: yes
+
+- $ sudo nano /etc/default/locale
+    --> LANG="     .UTF-8"
+        LC_ALL="      .UTF-8"
+
+- $ sudo locale-gen en_In.UTF-8
+- $ sudo update-locale
+- $ sudo reboot
+
+--> Copy the id_rsa.pub key from Server and Paste into authorized_keys of Client
+
+- $ cd demo
+- $ ansible -i inventory.ini -m ping all
+- $ ansible-playbook -i inventory.ini install.yml
+ 
+
+## AWS EC2 - 02 and 03
+
+- $ sudo systemctl status apache2
+----- Search on Web Browser <Public IP>-----
