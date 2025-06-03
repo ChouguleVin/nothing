@@ -53,3 +53,25 @@ echo "deb [signed-by=/usr/share/keyrings/jenkins-keyrings.asc]" \
 sudo apt-get update
 sudo apt-get install jenkins -y
 systemctl is-active jenkins
+
+
+sudo apt update
+sudo apt upgrade -y
+
+sudo apt install docker.io
+sudo mkdir Demo
+cd demo
+cd
+sudo usermod iacsd -aG Docker
+cd Demo
+nano index.hmtl
+    <h1> Hii.. </h1>
+nano Dockerfile
+    FROM htppd
+    COPY * /usr/local/apache2/htdocs
+docker pull httpd
+docker run -p 8000:80 -d --name web5 httpd
+check by opening the browser -> It Works
+docker cp index.html tokenid:/usr/local/apache2/htdocs
+check by opening the browser -> Hii..
+modify it one more time...
