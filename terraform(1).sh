@@ -26,3 +26,30 @@ aws --version
 
 
 
+
+height_input = input("Enter the height: ")
+width_input = input("Enter the width: ")
+
+if not (height_input.isdigit() and width_input.isdigit()):
+    print("Please enter valid integers for height and width.")
+    sys.exit(1)
+
+height = int(height_input)
+width = int(width_input)
+area = height * width
+print("The area of the rectangle is:", area)
+
+
+#!/bin/bash
+
+sudo apt update
+sudp apt upgrade -y
+sudo apt install fontconfig git default-jre -y
+sudo wget -O /usr/share/keyrings/jenkins-keyring.asc \
+  https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+echo "deb [signed-by=/usr/share/keyrings/jenkins-keyrings.asc]" \
+  https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
+  /etc/apt/sources.list.d/jenkins.list > /dev/null
+sudo apt-get update
+sudo apt-get install jenkins -y
+systemctl is-active jenkins
